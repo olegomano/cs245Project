@@ -5,7 +5,9 @@
  */
 package cs245project;
 
-import cs245project.MainMenu.OnMainMenuOptionPressed;
+import cs245project.JPanels.MainMenuJPanel;
+import cs245project.JPanels.HangManJPanel;
+import cs245project.JPanels.MainMenuJPanel.OnMainMenuOptionPressed;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -17,12 +19,12 @@ import javax.swing.JPanel;
  * @author momo-chan
  */
 public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, ReturnToMainMenuListener {
-    private MainMenu mainMenu;
+    private MainMenuJPanel mainMenu;
     private HangManJPanel hangMan;
     public RootJPanel(){
         super();
         setPreferredSize(new Dimension(600,400));
-        mainMenu = new MainMenu(); 
+        mainMenu = new MainMenuJPanel(); 
         hangMan = new HangManJPanel();
         try {
             mainMenu.setBackroundImage("symbol.jpg");

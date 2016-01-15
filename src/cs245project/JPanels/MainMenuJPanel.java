@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cs245project;
+package cs245project.JPanels;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
  *
  * @author momo-chan
  */
-public class MainMenu extends javax.swing.JPanel {
+public class MainMenuJPanel extends javax.swing.JPanel {
     public interface OnMainMenuOptionPressed{
         public void onNewGameSelected();
         public void onHighScoreSelected();
@@ -29,7 +29,7 @@ public class MainMenu extends javax.swing.JPanel {
     /**
      * Creates new form SplashScreenPanel
      */
-    public MainMenu() {
+    public MainMenuJPanel() {
         super();
         initComponents();
         

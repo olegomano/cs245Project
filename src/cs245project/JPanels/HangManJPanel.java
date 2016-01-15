@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cs245project;
+package cs245project.JPanels;
 
-import cs245project.KeyBoardPanel.OnKeyPressedListener;
+import cs245project.JPanels.KeyBoardPanel.OnKeyPressedListener;
 
 /**
  *
@@ -34,7 +34,7 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        keyBoardPanel1 = new cs245project.KeyBoardPanel();
+        keyBoardPanel1 = new cs245project.JPanels.KeyBoardPanel();
         jTextField1 = new javax.swing.JTextField();
 
         javax.swing.GroupLayout keyBoardPanel1Layout = new javax.swing.GroupLayout(keyBoardPanel1);
@@ -73,7 +73,7 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField jTextField1;
-    private cs245project.KeyBoardPanel keyBoardPanel1;
+    private cs245project.JPanels.KeyBoardPanel keyBoardPanel1;
     // End of variables declaration//GEN-END:variables
 
     @Override

@@ -37,7 +37,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="cs245project.KeyBoardPanel" name="keyBoardPanel1">
+    <Container class="cs245project.JPanels.KeyBoardPanel" name="keyBoardPanel1">
 
       <Layout>
         <DimensionLayout dim="0">
