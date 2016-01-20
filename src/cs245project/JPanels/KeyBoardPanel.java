@@ -29,7 +29,7 @@ public class KeyBoardPanel extends javax.swing.JPanel implements ActionListener{
         super();
         initComponents();
         System.out.println("Keyboard ctr");
-//mInit();
+        //mInit();
     }
     
     public void setKeyListener(OnKeyPressedListener l){
