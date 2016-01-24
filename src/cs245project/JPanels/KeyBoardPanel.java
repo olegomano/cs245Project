@@ -38,6 +38,7 @@ public class KeyBoardPanel extends javax.swing.JPanel implements ActionListener{
     
     public void reset(){
         for(int i  = 0; i < keys.length; i++){
+            if(keys[i]!=null)
             keys[i].setEnabled(true);
         }
     }
@@ -82,7 +83,7 @@ public class KeyBoardPanel extends javax.swing.JPanel implements ActionListener{
         javax.swing.JButton pressedKey = (javax.swing.JButton)ae.getSource();
         char pressedChar = pressedKey.getText().toCharArray()[0];
         if(listener!=null){
-            listener.onKeyPressed(pressedChar);
+            listener.onKeyPressed((char) (pressedChar + 32));
         }
         int pressedButton = pressedChar - 'A';
         keys[pressedButton].setEnabled(false);
