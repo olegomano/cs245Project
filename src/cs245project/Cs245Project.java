@@ -5,7 +5,10 @@
  */
 package cs245project;
 
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
 
 /**
  *
@@ -19,6 +22,9 @@ public class Cs245Project {
         // TODO code application logic here
         final JFrame jFrame = new JFrame();
         jFrame.add(new RootJPanel());
+        jFrame.setSize(600,400);
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        jFrame.setLocation(dimension.width/2-300, dimension.height/2-200);
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 jFrame.setVisible(true);

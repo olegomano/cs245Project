@@ -110,16 +110,19 @@ public class MainMenuJPanel extends javax.swing.JPanel {
     private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
         // TODO add your handling code here:
         listener.onHighScoreSelected();
+        jButton2.doClick();;
     }//GEN-LAST:event_jButton2MousePressed
 
     private void jButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MousePressed
         // TODO add your handling code here:
         listener.onNewGameSelected();
+        jButton3.doClick();
     }//GEN-LAST:event_jButton3MousePressed
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
         // TODO add your handling code here:
         listener.onCreditsSelected();
+        jButton1.doClick();
     }//GEN-LAST:event_jButton1MousePressed
 
 
