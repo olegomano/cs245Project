@@ -6,13 +6,20 @@
 package cs245project.JPanels;
 
 import cs245project.JPanels.KeyBoardPanel.OnKeyPressedListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Random;
+import javax.swing.Timer;
 
 /**
  *
  * @author root
  */
-public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedListener{
+public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedListener, ActionListener{
+
+   
     public interface HangMangStateListener{
         public void onGameReset();
         public void onGameFinished(int score);
@@ -31,6 +38,7 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
     
     private void mInit(){
         keyBoardPanel1.setKeyListener(this);
+        dateTimer.start();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,10 +67,15 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
 
         jTextField1.setText("jTextField1");
 
-        jButton2.setText("jButton2");
+        jButton2.setText("Skip");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -108,6 +121,14 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
         startGame();
     }//GEN-LAST:event_jButton2MouseClicked
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+    
+     @Override
+    public void actionPerformed(ActionEvent ae) {
+        jTextField2.setText(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()) );
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
@@ -115,7 +136,7 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
     private javax.swing.JTextField jTextField2;
     private cs245project.JPanels.KeyBoardPanel keyBoardPanel1;
     // End of variables declaration//GEN-END:variables
-    
+    private Timer dateTimer = new Timer(1000,this);
     private HangMangStateListener listener;
     private static String[] WORD_BANK = {
         "abstract", 
@@ -153,8 +174,8 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
             }
         }
         if(collectedLetters == WORD_BANK[currentWord].length()){
+            System.out.println("Game Won: " + score);
             if(listener!=null){
-                System.out.println("Game Won: " + score);
                 listener.onGameFinished(score);
                 return;
             }
@@ -162,6 +183,7 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
         System.out.println(userInput);
         jTextField1.setText(new String(userInput));
         if(userInput.length == WORD_BANK[currentWord].length()){
+            System.out.println("Game Lost");
             if(listener!=null){
                 listener.onGameLost();
             }
