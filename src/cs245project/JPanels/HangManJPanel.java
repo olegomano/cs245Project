@@ -50,9 +50,9 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
     private void initComponents() {
 
         keyBoardPanel1 = new cs245project.JPanels.KeyBoardPanel();
-        jTextField1 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
+        hangManGraphicsJpanel1 = new cs245project.JPanels.HangManGraphicsJpanel();
 
         javax.swing.GroupLayout keyBoardPanel1Layout = new javax.swing.GroupLayout(keyBoardPanel1);
         keyBoardPanel1.setLayout(keyBoardPanel1Layout);
@@ -64,8 +64,6 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
             keyBoardPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 156, Short.MAX_VALUE)
         );
-
-        jTextField1.setText("jTextField1");
 
         jButton2.setText("Skip");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -82,6 +80,17 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
         jTextField2.setEditable(false);
         jTextField2.setText("score");
 
+        javax.swing.GroupLayout hangManGraphicsJpanel1Layout = new javax.swing.GroupLayout(hangManGraphicsJpanel1);
+        hangManGraphicsJpanel1.setLayout(hangManGraphicsJpanel1Layout);
+        hangManGraphicsJpanel1Layout.setHorizontalGroup(
+            hangManGraphicsJpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 480, Short.MAX_VALUE)
+        );
+        hangManGraphicsJpanel1Layout.setVerticalGroup(
+            hangManGraphicsJpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 220, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,29 +100,28 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(keyBoardPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(hangManGraphicsJpanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE))
+                                .addGap(5, 5, 5)
+                                .addComponent(jButton2))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(15, 15, 15)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addGap(27, 27, 27)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(keyBoardPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(hangManGraphicsJpanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(keyBoardPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -131,12 +139,13 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private cs245project.JPanels.HangManGraphicsJpanel hangManGraphicsJpanel1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private cs245project.JPanels.KeyBoardPanel keyBoardPanel1;
     // End of variables declaration//GEN-END:variables
     private Timer dateTimer = new Timer(1000,this);
+    private final static int MAX_MISTAKES = 6;
     private HangMangStateListener listener;
     private static String[] WORD_BANK = {
         "abstract", 
@@ -145,6 +154,7 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
         "pharmacy", 
         "climbing"
     };
+    private int mistakes = 0;
     private int score = 100;
     private int currentWord = 0;
     private char[] userInput;
@@ -158,15 +168,17 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
         for(int i = 0; i < asChar.length; i++){
             if(asChar[i] == key){
                 userInput[i] = key;
+                hangManGraphicsJpanel1.setText(userInput);
+                hangManGraphicsJpanel1.repaint();
                 validKey = true;
                 collectedLetters++;
             }
         }
         if(!validKey){
             score-=10;
-            jTextField2.setText(score+"");
+            ++mistakes;
             System.out.println("Missed Letter");
-            if(score <= 0){
+            if(mistakes >= MAX_MISTAKES){
                 System.out.println("You Lost Game");
                 if(listener!=null){
                     listener.onGameFinished(score);
@@ -181,7 +193,8 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
             }
         }
         System.out.println(userInput);
-        jTextField1.setText(new String(userInput));
+        //jTextField1.setText(new String(userInput));
+        
         if(userInput.length == WORD_BANK[currentWord].length()){
             System.out.println("Game Lost");
             if(listener!=null){
@@ -189,11 +202,10 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
             }
             return;
         }
-        
-        repaint();
     }
     
     public void startGame(){
+        mistakes = 0;
         keyBoardPanel1.reset();
         collectedLetters = 0;
         currentWord = Math.abs( new Random().nextInt() )% WORD_BANK.length;
@@ -204,6 +216,8 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
         for(int i = 0 ; i < userInput.length; i++){
             userInput[i] = ' ';
         }
+        hangManGraphicsJpanel1.setText(userInput);
+        hangManGraphicsJpanel1.repaint();
     }
     
     
