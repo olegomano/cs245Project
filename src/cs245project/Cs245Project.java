@@ -21,8 +21,8 @@ public class Cs245Project {
     public static void main(String[] args) {
         // TODO code application logic here
         final JFrame jFrame = new JFrame();
-        jFrame.add(new RootJPanel());
-        jFrame.setSize(600,400);
+        jFrame.getContentPane().add(new RootJPanel());
+        jFrame.getContentPane().setSize(400,600);
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         jFrame.setLocation(dimension.width/2-300, dimension.height/2-200);
         java.awt.EventQueue.invokeLater(new Runnable() {

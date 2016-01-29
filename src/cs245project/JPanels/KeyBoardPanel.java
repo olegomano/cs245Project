@@ -47,6 +47,7 @@ public class KeyBoardPanel extends javax.swing.JPanel implements ActionListener{
         super.setBounds(x, y, w, h);
         System.out.println("Setting Bounds");
         mInit();
+        repaint();
     }
     
     private void mInit(){

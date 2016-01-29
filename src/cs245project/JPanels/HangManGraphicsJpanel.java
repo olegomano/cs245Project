@@ -32,6 +32,10 @@ public class HangManGraphicsJpanel extends JPanel{
     private char[] userText;
     private int hangmanState;
     
+    public HangManGraphicsJpanel(){
+        super();
+        hangmanBounds = new Rectangle();
+    }
     
     public void setText(char[] text){
         textBounds = new Rectangle[text.length];
@@ -45,28 +49,62 @@ public class HangManGraphicsJpanel extends JPanel{
         hangmanState = state;
     }
     
-    private void drawHead(){
-    
+    private void drawHead(Graphics g){
+        System.out.println("Drawing Head");
+        g.setColor(Color.RED);
+        int startX = (int)(hangmanBounds.x + hangmanBounds.width*.5f);
+        int startY = (int)( hangmanBounds.y + hangmanBounds.height*.15f);
+        int rad = (int)(hangmanBounds.height*.15f);
+        System.out.println("Bounds " + hangmanBounds.toString());
+        System.out.println("Head (x,y,r): (" + startX + ", " + startY + "," + rad);
+        g.fillOval(startX - rad/2, startY - rad/2, rad, rad);
     }
     
-    private void drawLeftArm(){
-    
+    private void drawLeftArm(Graphics g){
+        int startX = (int)(hangmanBounds.x + hangmanBounds.width*.5f);
+        int startY = (int)( hangmanBounds.y + hangmanBounds.height*.15f + hangmanBounds.height*.075f);
+        int endX = (int)(startX - hangmanBounds.width*.25f);
+        int endY = (int)(startY + hangmanBounds.height*.25f);
+        g.drawLine(startX, startY, endX, endY);
+        
+        
     }
     
-    private void drawRightArm(){
-    
+    private void drawRightArm(Graphics g){
+        int startX = (int)(hangmanBounds.x + hangmanBounds.width*.5f);
+        int startY = (int)( hangmanBounds.y + hangmanBounds.height*.15f + hangmanBounds.height*.075f);
+        int endX = (int)(startX + hangmanBounds.width*.25f);
+        int endY = (int)(startY + hangmanBounds.height*.25f);
+        g.drawLine(startX, startY, endX, endY);
+       
     }
     
-    private void drawLeftLeg(){
+    private void drawLeftLeg(Graphics g){
+        int startX = (int)(hangmanBounds.x + hangmanBounds.width*.5f);
+        int startY = (int) (hangmanBounds.y + hangmanBounds.height*.15f + hangmanBounds.height*.075f + hangmanBounds.height*.15f);
+        int endX = (int)(startX - hangmanBounds.width*.15f);
+        int endY = (int)(startY + hangmanBounds.height*.55f);
+        g.drawLine(startX, startY, endX, endY);
+      }
     
+    private void drawRightLeg(Graphics g){
+        int startX = (int)(hangmanBounds.x + hangmanBounds.width*.5f);
+        int startY = (int) (hangmanBounds.y + hangmanBounds.height*.15f + hangmanBounds.height*.075f + hangmanBounds.height*.15f);
+        int endX = (int)(startX + hangmanBounds.width*.15f);
+        int endY = (int)(startY + hangmanBounds.height*.55f);
+        g.drawLine(startX, startY, endX, endY);
     }
     
-    private void drawRightLeg(){
-    
+    private void drawTorso(Graphics g){
+        int startX = (int)(hangmanBounds.x + hangmanBounds.width*.5f);
+        int startY = (int)( hangmanBounds.y + hangmanBounds.height*.15f + hangmanBounds.height*.075f);
+        int endX = startX;
+        int endY = (int) (startY + hangmanBounds.height*.15f);
+        g.drawLine(startX, startY, endX, endY);
     }
     
-    private void drawTorso(){
-    
+    private void drawNoose(Graphics g){
+        
     }
     
     @Override
@@ -78,21 +116,23 @@ public class HangManGraphicsJpanel extends JPanel{
         int letterWidth = (int) (panelWidth*TEXT_WIDTH/(userText.length+1) );
         int letterHeight = (int) (panelHeight*TEXT_HEIGHT);
         int paddingSpace = (int) ((panelWidth*TEXT_WIDTH - letterWidth*userText.length ) / userText.length);
-        hangmanBounds = new Rectangle((int)HANGMAN_START_X*panelWidth,(int)HANGMAN_START_Y*panelHeight,(int)HANGMAN_HEIGHT*panelHeight,(int)HANGMAN_WIDTH*panelWidth);
+        hangmanBounds.setBounds((int)(HANGMAN_START_X*panelWidth),(int)(HANGMAN_START_Y*panelHeight),(int)(HANGMAN_WIDTH*panelWidth),(int)(HANGMAN_HEIGHT*panelHeight));
+        System.out.println(hangmanBounds.toString());
         switch(hangmanState){
             case 6:
-                drawLeftLeg();
+                drawLeftLeg(g);
             case 5:
-                drawRightLeg();
+                drawRightLeg(g);
             case 4:
-                drawTorso();
+                drawTorso(g);
             case 3:
-                drawLeftArm();
+                drawLeftArm(g);
             case 2:
-                drawRightArm();
+                drawRightArm(g);
             case 1:
-                drawHead();
-            case 0:    
+                drawHead(g);
+            case 0:   
+                drawNoose(g);
         }
        
         int letterX = (int) (TEXT_START_X*panelWidth);

@@ -10,6 +10,7 @@ import cs245project.JPanels.MainMenuJPanel;
 import cs245project.JPanels.HangManJPanel;
 import cs245project.JPanels.HighScoreJPanel;
 import cs245project.JPanels.CreditsJPanel;
+import cs245project.JPanels.HangManJPanel.HangManStateListener;
 import cs245project.JPanels.MainMenuJPanel.OnMainMenuOptionPressed;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -24,7 +25,7 @@ import javax.swing.Timer;
  *
  * @author momo-chan
  */
-public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, ReturnToMainMenuListener {
+public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, ReturnToMainMenuListener, HangManStateListener {
     private DisplayInfoJPanel displayInfo;
     private MainMenuJPanel mainMenu;
     private HangManJPanel hangMan;
@@ -47,6 +48,7 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         mainMenu.setOnMainMenuOptionListener(this);
         highScore.setReturnMainMenuSelectedListener(this);
         credits.setReturnMainMenuSelectedListener(this);
+        hangMan.setHangmanStateListener(this);
   
         add(mainMenu);
         revalidate();
@@ -87,6 +89,21 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         add(credits);
         revalidate();
         repaint();
+    }
+
+    @Override
+    public void onGameReset() {
+
+    }
+
+    @Override
+    public void onGameFinished(int score) {
+
+    }
+
+    @Override
+    public void onGameLost() {
+
     }
     
 }

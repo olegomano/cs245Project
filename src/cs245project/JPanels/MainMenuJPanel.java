@@ -31,6 +31,7 @@ public class MainMenuJPanel extends javax.swing.JPanel {
      */
     public MainMenuJPanel() {
         super();
+        setBounds(0, 0, 600, 400);
         initComponents();
     }
     
