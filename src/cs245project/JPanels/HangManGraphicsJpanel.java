@@ -1,8 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/***************************************************************
+*
+file: HangManGraphicsJpanel.java
+*
+author: Oleg Tolstov
+*
+class: CS 245
+–
+GUI
+*
+*
+assignment: Quarter Project
+*
+date last modified: 1/30/2015
+*
+*
+purpose: This program plays a game of hangman
+****************************************************************/ 
 package cs245project.JPanels;
 
 import java.awt.Color;
@@ -36,7 +49,10 @@ public class HangManGraphicsJpanel extends JPanel{
         super();
         hangmanBounds = new Rectangle();
     }
-    
+    /**
+    * Sets the users current input text 
+    * @param text 
+    */
     public void setText(char[] text){
         textBounds = new Rectangle[text.length];
         for(int i = 0; i < textBounds.length; i++){
@@ -44,11 +60,18 @@ public class HangManGraphicsJpanel extends JPanel{
         }
         userText = text;
     }
-    
+    /**
+     * Sets how much of the hangman to draw
+     * @param state 
+     */
     public void setHangmanState(int state){
         hangmanState = state;
     }
     
+    /**
+     * Draws the hangman's head
+     * @param g 
+     */
     private void drawHead(Graphics g){
         System.out.println("Drawing Head");
         g.setColor(Color.RED);
@@ -59,7 +82,10 @@ public class HangManGraphicsJpanel extends JPanel{
         System.out.println("Head (x,y,r): (" + startX + ", " + startY + "," + rad);
         g.fillOval(startX - rad/2, startY - rad/2, rad, rad);
     }
-    
+    /**
+     * Draws the hangman's left arm
+     * @param g 
+     */
     private void drawLeftArm(Graphics g){
         int startX = (int)(hangmanBounds.x + hangmanBounds.width*.5f);
         int startY = (int)( hangmanBounds.y + hangmanBounds.height*.15f + hangmanBounds.height*.075f);
@@ -70,6 +96,10 @@ public class HangManGraphicsJpanel extends JPanel{
         
     }
     
+    /**
+     * Draws the hangman's right arm
+     * @param g 
+     */
     private void drawRightArm(Graphics g){
         int startX = (int)(hangmanBounds.x + hangmanBounds.width*.5f);
         int startY = (int)( hangmanBounds.y + hangmanBounds.height*.15f + hangmanBounds.height*.075f);
@@ -79,14 +109,22 @@ public class HangManGraphicsJpanel extends JPanel{
        
     }
     
+    /**
+     * Draws the hangman's left arm
+     * @param g 
+     */
     private void drawLeftLeg(Graphics g){
         int startX = (int)(hangmanBounds.x + hangmanBounds.width*.5f);
         int startY = (int) (hangmanBounds.y + hangmanBounds.height*.15f + hangmanBounds.height*.075f + hangmanBounds.height*.15f);
         int endX = (int)(startX - hangmanBounds.width*.15f);
         int endY = (int)(startY + hangmanBounds.height*.55f);
         g.drawLine(startX, startY, endX, endY);
-      }
+    }
     
+    /**
+     * Draws the hangman's right leg
+     * @param g 
+     */
     private void drawRightLeg(Graphics g){
         int startX = (int)(hangmanBounds.x + hangmanBounds.width*.5f);
         int startY = (int) (hangmanBounds.y + hangmanBounds.height*.15f + hangmanBounds.height*.075f + hangmanBounds.height*.15f);
@@ -94,7 +132,10 @@ public class HangManGraphicsJpanel extends JPanel{
         int endY = (int)(startY + hangmanBounds.height*.55f);
         g.drawLine(startX, startY, endX, endY);
     }
-    
+    /**
+     * Draws the hangman's left leg
+     * @param g 
+     */
     private void drawTorso(Graphics g){
         int startX = (int)(hangmanBounds.x + hangmanBounds.width*.5f);
         int startY = (int)( hangmanBounds.y + hangmanBounds.height*.15f + hangmanBounds.height*.075f);
@@ -103,10 +144,22 @@ public class HangManGraphicsJpanel extends JPanel{
         g.drawLine(startX, startY, endX, endY);
     }
     
+    
     private void drawNoose(Graphics g){
+        g.setColor(Color.BLACK);
+        g.fillRect((int)(hangmanBounds.x + hangmanBounds.width*.1f), (int)(hangmanBounds.y + hangmanBounds.height*.90f),(int)(hangmanBounds.width*.7f),(int)(hangmanBounds.height*.07f) );
+        g.fillRect((int)(hangmanBounds.x + hangmanBounds.width*.15f), (int)(hangmanBounds.y + hangmanBounds.height*.10f),(int)(hangmanBounds.width*.03f),(int)(hangmanBounds.height*.8f) );
+        
+        int headX = (int)(hangmanBounds.x + hangmanBounds.width*.5f);
+        int headY = (int)( hangmanBounds.y + hangmanBounds.height*.15f);
+        int headRad = (int)(hangmanBounds.height*.15f);
+        g.fillRect((int)(hangmanBounds.x + hangmanBounds.width*.15f), (int)(hangmanBounds.y + hangmanBounds.height*.10f),headX - (int)(hangmanBounds.x + hangmanBounds.width*.15f), headY - (int)(hangmanBounds.y + hangmanBounds.height*.10f) );
         
     }
-    
+    /**
+     * Draws the text that the user inputted as well as the hangman
+     * @param g 
+     */
     @Override
     public void paint(Graphics g) {
         super.paintComponent(g);

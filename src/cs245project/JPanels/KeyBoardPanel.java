@@ -1,8 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/***************************************************************
+*
+file: HangManGraphicsJpanel.java
+*
+author: Oleg Tolstov
+*
+class: CS 245
+–
+GUI
+*
+*
+assignment: Quarter Project
+*
+date last modified: 1/30/2015
+*
+*
+purpose: This program plays a game of hangman
+****************************************************************/ 
+
 package cs245project.JPanels;
 
 import java.awt.Font;
@@ -31,25 +45,38 @@ public class KeyBoardPanel extends javax.swing.JPanel implements ActionListener{
         System.out.println("Keyboard ctr");
         //mInit();
     }
-    
+    /**
+     * Sets callback that listens for when keys are pressed
+     * @param l 
+     */
     public void setKeyListener(OnKeyPressedListener l){
         listener = l;
     }
-    
+    /**
+     * Enables all the keys
+     */
     public void reset(){
         for(int i  = 0; i < keys.length; i++){
             if(keys[i]!=null)
             keys[i].setEnabled(true);
         }
     }
-    
+    /**
+     * Called when the keyboard is resized
+     * @param x
+     * @param y
+     * @param w
+     * @param h 
+     */
     public void setBounds(int x, int y, int w, int h){
         super.setBounds(x, y, w, h);
         System.out.println("Setting Bounds");
         mInit();
         repaint();
     }
-    
+    /**
+     * Positions all the keys programmatically based on the dimensions of the panel
+     */
     private void mInit(){
         int keysPerRow = keys.length / rows;
         int curRow = 0;
@@ -78,7 +105,10 @@ public class KeyBoardPanel extends javax.swing.JPanel implements ActionListener{
             
         }
     }
-       
+    /**
+     * Callback every time a key is clicked on
+     * @param ae 
+     */   
     @Override
     public void actionPerformed(ActionEvent ae) {
         javax.swing.JButton pressedKey = (javax.swing.JButton)ae.getSource();

@@ -1,8 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/***************************************************************
+*
+file: HangManGraphicsJpanel.java
+*
+author: Oleg Tolstov
+*
+class: CS 245
+–
+GUI
+*
+*
+assignment: Quarter Project
+*
+date last modified: 1/30/2015
+*
+*
+purpose: This program plays a game of hangman
+****************************************************************/ 
+
 package cs245project.JPanels;
 
 import cs245project.JPanels.KeyBoardPanel.OnKeyPressedListener;
@@ -25,7 +39,10 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
         public void onGameFinished(int score);
         public void onGameLost();
     }
-    
+    /**
+     * Sets the listener for hangman events
+     * @param l 
+     */
     public void setHangmanStateListener(HangManStateListener l){
         listener = l;
     }
@@ -131,14 +148,19 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        listener.onGameReset();
         startGame();
+        
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
-    
-     @Override
+    /**
+     * Callback for the timer that ticks every second to update the date/time
+     * @param ae 
+     */
+    @Override
     public void actionPerformed(ActionEvent ae) {
         jTextField2.setText(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()) );
     }
@@ -164,6 +186,10 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
     private int currentWord = 0;
     private char[] userInput;
     private int collectedLetters = 0;
+    /**
+     * Callback every time the keyboard panel has a key pressed
+     * @param key ascii code of the key that was pressed
+     */
     @Override
     public void onKeyPressed(char key) {
         //jTextField1.setText(jTextField1.getText() + key );
@@ -200,7 +226,9 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
         }
         System.out.println(userInput);
     }
-    
+    /**
+     * Resets the state of the game, and generates a new word
+     */
     public void startGame(){
         mistakes = 0;
         keyBoardPanel1.reset();

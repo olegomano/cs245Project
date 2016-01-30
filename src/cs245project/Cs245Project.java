@@ -1,8 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/***************************************************************
+*
+file: HangManGraphicsJpanel.java
+*
+author: Oleg Tolstov
+*
+class: CS 245
+–
+GUI
+*
+*
+assignment: Quarter Project
+*
+date last modified: 1/30/2015
+*
+*
+purpose: This program plays a game of hangman
+****************************************************************/ 
 package cs245project;
 
 import javax.swing.*;
