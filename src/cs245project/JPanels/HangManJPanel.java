@@ -25,6 +25,10 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.Timer;
 
 /**
@@ -55,12 +59,35 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
         super();
         initComponents();
         mInit();
-        startGame();
+        this.setBounds(0,0, 600, 400);
     }
     
+    
+    
     private void mInit(){
+        keyBoardPanel1 = new KeyBoardPanel();
+        hangManGraphicsJpanel1 = new HangManGraphicsJpanel();
+        jTextField2 = new JLabel();
+        resetButton = new JButton();
+        resetButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if(listener!=null){
+                    listener.onGameReset();
+                }
+            }
+        });
         keyBoardPanel1.setKeyListener(this);
         dateTimer.start();
+        hangManGraphicsJpanel1.setBounds(25,0,375,200);
+        keyBoardPanel1.setBounds(25, 225, 550, 150);
+        jTextField2.setBounds(400,50,150,40);
+        resetButton.setBounds(400,100, 150, 40);
+        resetButton.setText("skip");
+        add(keyBoardPanel1);
+        add(hangManGraphicsJpanel1);
+        add(jTextField2);
+        add(resetButton);
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,91 +98,17 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        keyBoardPanel1 = new cs245project.JPanels.KeyBoardPanel();
-        jButton2 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
-        hangManGraphicsJpanel1 = new cs245project.JPanels.HangManGraphicsJpanel();
-
-        javax.swing.GroupLayout keyBoardPanel1Layout = new javax.swing.GroupLayout(keyBoardPanel1);
-        keyBoardPanel1.setLayout(keyBoardPanel1Layout);
-        keyBoardPanel1Layout.setHorizontalGroup(
-            keyBoardPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        keyBoardPanel1Layout.setVerticalGroup(
-            keyBoardPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 147, Short.MAX_VALUE)
-        );
-
-        jButton2.setText("Skip");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
-            }
-        });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jTextField2.setEditable(false);
-        jTextField2.setText("score");
-
-        javax.swing.GroupLayout hangManGraphicsJpanel1Layout = new javax.swing.GroupLayout(hangManGraphicsJpanel1);
-        hangManGraphicsJpanel1.setLayout(hangManGraphicsJpanel1Layout);
-        hangManGraphicsJpanel1Layout.setHorizontalGroup(
-            hangManGraphicsJpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 497, Short.MAX_VALUE)
-        );
-        hangManGraphicsJpanel1Layout.setVerticalGroup(
-            hangManGraphicsJpanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 220, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(keyBoardPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(hangManGraphicsJpanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jButton2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(26, Short.MAX_VALUE))
+            .addGap(0, 600, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(27, 27, 27)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(hangManGraphicsJpanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(keyBoardPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(27, 27, 27))
+            .addGap(0, 400, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        listener.onGameReset();
-        //startGame();
-        
-    }//GEN-LAST:event_jButton2MouseClicked
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
     /**
      * Callback for the timer that ticks every second to update the date/time
      * @param ae 
@@ -164,12 +117,12 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
     public void actionPerformed(ActionEvent ae) {
         jTextField2.setText(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()) );
     }
-
+    HangManGraphicsJpanel hangManGraphicsJpanel1;
+    JLabel jTextField2;
+    KeyBoardPanel keyBoardPanel1;
+    JButton resetButton;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private cs245project.JPanels.HangManGraphicsJpanel hangManGraphicsJpanel1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JTextField jTextField2;
-    private cs245project.JPanels.KeyBoardPanel keyBoardPanel1;
     // End of variables declaration//GEN-END:variables
     private Timer dateTimer = new Timer(1000,this);
     private final static int MAX_MISTAKES = 6;
@@ -213,7 +166,7 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
             if(mistakes >= MAX_MISTAKES){
                 System.out.println("You Lost Game");
                 if(listener!=null){
-                    listener.onGameFinished(score);
+                    listener.onGameLost();
                 }
             }
         }
@@ -244,6 +197,7 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
         hangManGraphicsJpanel1.setHangmanState(0);
         hangManGraphicsJpanel1.setText(userInput);
         hangManGraphicsJpanel1.repaint();
+        repaint();
         
     }
     

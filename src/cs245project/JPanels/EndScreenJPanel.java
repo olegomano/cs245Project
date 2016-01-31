@@ -108,6 +108,10 @@ public class EndScreenJPanel extends javax.swing.JPanel {
         jLabel2.setText("" + score);
     }
     
+    public void setText(String text){
+        jLabel2.setText(text);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

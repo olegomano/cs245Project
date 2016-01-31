@@ -93,9 +93,9 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
     public void onNewGameSelected() {
         System.out.println("New Game Selected");
         removeAll();
-        hangMan.startGame();
         add(hangMan);
-        revalidate();
+        hangMan.startGame();
+        validate();
         repaint();
     }
     
@@ -128,7 +128,7 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         System.out.println("Game Reset");
         removeAll();
         add(endScreen);
-        endScreen.setScore(0);
+        endScreen.setText("Skipped \n score: " + 0);
         revalidate();
         repaint();
     }
@@ -140,7 +140,7 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         System.out.println("Game Finished");
         removeAll();
         add(endScreen);
-        endScreen.setScore(score);
+        endScreen.setText("You Won! \n score: " + score);
         revalidate();
         repaint();
     }
@@ -151,7 +151,7 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         System.out.println("Game Lost");
         removeAll();
         add(endScreen);
-        endScreen.setScore(40);
+        endScreen.setText("You Lost! \n score: " + 40);
         revalidate();
         repaint();
     }
