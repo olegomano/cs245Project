@@ -149,7 +149,7 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         listener.onGameReset();
-        startGame();
+        //startGame();
         
     }//GEN-LAST:event_jButton2MouseClicked
 
@@ -236,7 +236,7 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
         currentWord = Math.abs( new Random().nextInt() )% WORD_BANK.length;
         System.out.println("Word: " + WORD_BANK[currentWord]);
         score = 100;
-        jTextField2.setText(score+"");
+        //jTextField2.setText(score+"");
         userInput = new char[WORD_BANK[currentWord].length()];
         for(int i = 0 ; i < userInput.length; i++){
             userInput[i] = ' ';

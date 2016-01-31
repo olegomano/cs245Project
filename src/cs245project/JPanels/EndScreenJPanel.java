@@ -1,6 +1,6 @@
 /***************************************************************
 *
-file: CreditsJPanel.java
+file: EndScreenJPanel.java
 *
 
 author: Ning Li
@@ -21,23 +21,20 @@ purpose: This program plays a game of hangman
 package cs245project.JPanels;
 
 import cs245project.ReturnToMainMenuListener;
-
 /**
  *
  * @author ningl_000
  */
-public class CreditsJPanel extends javax.swing.JPanel {
+public class EndScreenJPanel extends javax.swing.JPanel {
 
     private ReturnToMainMenuListener listener;
     /**
-     * Creates new form CreditsJPanel
+     * Creates new form EndScreenJPanel
      */
-    public CreditsJPanel() {
+    public EndScreenJPanel() {
         super();
         initComponents();
     }
-    
-    //action listener when user click back to return to main menu
     public void setReturnMainMenuSelectedListener(ReturnToMainMenuListener l){
         listener = l;
     }
@@ -53,19 +50,19 @@ public class CreditsJPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Harlow Solid Italic", 1, 68)); // NOI18N
-        jLabel1.setText("Credits");
+        setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("Ning Li, 008878792");
+        jLabel1.setFont(new java.awt.Font("Footlight MT Light", 0, 68)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel1.setText("Your Score");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("Oleg Tolstov, 009343997");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("jLabel2");
 
-        jButton1.setText("Back");
+        jButton1.setText("End");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -76,33 +73,27 @@ public class CreditsJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(58, 58, 58))
             .addGroup(layout.createSequentialGroup()
+                .addGap(154, 154, 154)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(204, 204, 204)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jButton1)))
-                .addContainerGap(195, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
+                .addGap(54, 54, 54)
+                .addComponent(jLabel1)
+                .addGap(60, 60, 60)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(60, 60, 60))
+                .addGap(66, 66, 66))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -111,11 +102,15 @@ public class CreditsJPanel extends javax.swing.JPanel {
         listener.onReturnToMainMenuSelected();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-
+    //set the score from the hangman screen
+    //it passes to RooJpanel and then pass it to the score here
+    public void setScore(int score) {
+        jLabel2.setText("" + score);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

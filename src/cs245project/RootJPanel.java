@@ -1,8 +1,10 @@
 /***************************************************************
 *
-file: HangManGraphicsJpanel.java
+file: RootJPanel.java
 *
 author: Oleg Tolstov
+* 
+author: Ning Li
 *
 class: CS 245
 –
@@ -11,7 +13,7 @@ GUI
 *
 assignment: Quarter Project
 *
-date last modified: 1/30/2015
+date last modified: 1/31/2015
 *
 *
 purpose: This program plays a game of hangman
@@ -24,6 +26,7 @@ import cs245project.JPanels.MainMenuJPanel;
 import cs245project.JPanels.HangManJPanel;
 import cs245project.JPanels.HighScoreJPanel;
 import cs245project.JPanels.CreditsJPanel;
+import cs245project.JPanels.EndScreenJPanel;
 import cs245project.JPanels.HangManJPanel.HangManStateListener;
 import cs245project.JPanels.MainMenuJPanel.OnMainMenuOptionPressed;
 import java.awt.Dimension;
@@ -39,13 +42,16 @@ import javax.swing.Timer;
  *
  * @author momo-chan
  */
-public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, ReturnToMainMenuListener, HangManStateListener {
+public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, ReturnToMainMenuListener, HangManStateListener, ActionListener {
     private DisplayInfoJPanel displayInfo;
     private MainMenuJPanel mainMenu;
     private HangManJPanel hangMan;
     private HighScoreJPanel highScore;
     private CreditsJPanel credits;
+    private EndScreenJPanel endScreen;
+    private Timer timer;
     
+    //initializing necessary variables and starting a timer
     public RootJPanel(){
         super();
         setPreferredSize(new Dimension(600,400));
@@ -54,6 +60,7 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         hangMan = new HangManJPanel();
         highScore = new HighScoreJPanel();
         credits = new CreditsJPanel();
+        endScreen = new EndScreenJPanel();
         try {
             mainMenu.setBackroundImage("symbol.jpg");
         } catch (IOException ex) {
@@ -63,12 +70,15 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         highScore.setReturnMainMenuSelectedListener(this);
         credits.setReturnMainMenuSelectedListener(this);
         hangMan.setHangmanStateListener(this);
-  
-        add(mainMenu);
+        endScreen.setReturnMainMenuSelectedListener(this);
+        timer = new Timer(3000,this);
+        add(displayInfo);
+        timer.start();
         revalidate();
         repaint();
     }
     
+    //listeners to "back" and "end" button to return to mainmenu
     @Override
     public void onReturnToMainMenuSelected(){
         System.out.println("Returned to main menu");
@@ -78,15 +88,19 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         repaint();
     }
 
+    //listener to when a new game is needed
     @Override
     public void onNewGameSelected() {
         System.out.println("New Game Selected");
-        remove(mainMenu);  
+        removeAll();
+        hangMan.startGame();
         add(hangMan);
         revalidate();
         repaint();
     }
-
+    
+    //remove everything and
+    //displays the highscore screen when user click highScore
     @Override
     public void onHighScoreSelected() {
         System.out.println("On HighScoreSelected");
@@ -96,6 +110,8 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         repaint();
     }
 
+    //remove everything and
+    //displays the credits screen when user click credits
     @Override
     public void onCreditsSelected() {
         System.out.println("On Credits Selected");
@@ -105,19 +121,50 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         repaint();
     }
 
+    //when user click the "skip" button, the game finishes with a score
+    //of 0, then displays the endscreen
     @Override
     public void onGameReset() {
-
+        System.out.println("Game Reset");
+        removeAll();
+        add(endScreen);
+        endScreen.setScore(0);
+        revalidate();
+        repaint();
     }
 
+    //when user correctly guessed the word, displays it accordingly
+    //score and the endscreen
     @Override
     public void onGameFinished(int score) {
-
+        System.out.println("Game Finished");
+        removeAll();
+        add(endScreen);
+        endScreen.setScore(score);
+        revalidate();
+        repaint();
     }
 
+    //when user lost the game, display the secore and the endscreen
     @Override
     public void onGameLost() {
+        System.out.println("Game Lost");
+        removeAll();
+        add(endScreen);
+        endScreen.setScore(40);
+        revalidate();
+        repaint();
+    }
 
+    //stop the timer after 3 seconds and then remove the information screen
+    // and displays the menu
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        timer.stop();
+        removeAll();
+        add(mainMenu);
+        revalidate();
+        repaint();
     }
     
 }
