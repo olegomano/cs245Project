@@ -67,7 +67,7 @@ public class GameOfColorJPanel extends JPanel implements OvalButtonListener, Act
             add(ovalButton[i]);
         }
         generateButtons();
-        onOvalButtonPressed(Color.BLUE);
+        
         
         
       
