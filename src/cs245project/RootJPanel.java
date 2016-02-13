@@ -27,6 +27,7 @@ import cs245project.JPanels.HangManJPanel;
 import cs245project.JPanels.HighScoreJPanel;
 import cs245project.JPanels.CreditsJPanel;
 import cs245project.JPanels.EndScreenJPanel;
+import cs245project.JPanels.GameOfColorJPanel;
 import cs245project.JPanels.HangManJPanel.HangManStateListener;
 import cs245project.JPanels.MainMenuJPanel.OnMainMenuOptionPressed;
 import java.awt.Dimension;
@@ -49,6 +50,7 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
     private HighScoreJPanel highScore;
     private CreditsJPanel credits;
     private EndScreenJPanel endScreen;
+    private GameOfColorJPanel gameOfColor;
     private Timer timer;
     
     //initializing necessary variables and starting a timer
@@ -61,6 +63,7 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         highScore = new HighScoreJPanel();
         credits = new CreditsJPanel();
         endScreen = new EndScreenJPanel();
+        gameOfColor = new GameOfColorJPanel();
         try {
             mainMenu.setBackroundImage("symbol.jpg");
         } catch (IOException ex) {
@@ -127,8 +130,9 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
     public void onGameReset() {
         System.out.println("Game Reset");
         removeAll();
-        add(endScreen);
-        endScreen.setText("Skipped \n score: " + 0);
+        add(gameOfColor);
+        //add(endScreen);
+        //endScreen.setText("Skipped \n score: " + 0);
         revalidate();
         repaint();
     }
