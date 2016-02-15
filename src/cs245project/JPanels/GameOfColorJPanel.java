@@ -7,6 +7,7 @@
 package cs245project.JPanels;
 
 import cs245project.JPanels.EndScreenJPanel;
+import cs245project.JPanels.HangManJPanel;
 import cs245project.JPanels.OvalButton;
 import cs245project.JPanels.OvalButton.OvalButtonListener;
 import java.awt.Color;
@@ -36,16 +37,20 @@ public class GameOfColorJPanel extends JPanel implements OvalButtonListener, Act
     private JLabel timer;
     private OvalButton[] ovalButton;
     private EndScreenJPanel endScreen;
+    private HangManJPanel hangMan;
     private Color[] colors = new Color[] { Color.RED, Color.GREEN, Color.BLUE, new Color(1.0f,1.0f,0.0f,1), new Color(1.0f,0.7f,0.85f,1)};
     Random rd = new Random();
     Color randomColor = colors[Math.abs(rd.nextInt())%colors.length];
     private String[] names = {"Red","Green","Blue","Yellow","Pink"};
+    private int numOfGames=1;
+    private int newScore;
     /**
      * Creates new form GameOfColorJPanel
      */
     public GameOfColorJPanel() {
         super();
         endScreen = new EndScreenJPanel();
+        hangMan = new HangManJPanel();
         initComponents();
         mInit();
         this.setBounds(0,0, 600, 400);
@@ -67,10 +72,10 @@ public class GameOfColorJPanel extends JPanel implements OvalButtonListener, Act
             add(ovalButton[i]);
         }
         generateButtons();
+        for(int i = 0; i<ovalButton.length; i++) {
+            ovalButton[i].setOvalButtonListener(this);
+        }  
         
-        
-        
-      
     }
     
     private void generateButtons(){
@@ -181,10 +186,21 @@ public class GameOfColorJPanel extends JPanel implements OvalButtonListener, Act
     @Override
     public void onOvalButtonPressed(Color c) {
         System.out.println("button pressed" + c);
-        removeAll();
-        add(endScreen);
+        System.out.println(jTextField1.getForeground());
         generateButtons();
         revalidate();
         repaint();
+        if(c != jTextField1.getForeground()){
+            newScore -= 100;
+            System.out.println("score:" + newScore);
+        }
+        else{
+            newScore += 100;
+            System.out.println("score:" + newScore);
+        }
+    }
+    
+    public void setScore(int score){
+        newScore = score;
     }
 }

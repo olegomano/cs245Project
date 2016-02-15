@@ -131,6 +131,7 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         System.out.println("Game Reset");
         removeAll();
         add(gameOfColor);
+        gameOfColor.setScore(0);
         //add(endScreen);
         //endScreen.setText("Skipped \n score: " + 0);
         revalidate();
@@ -143,8 +144,9 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
     public void onGameFinished(int score) {
         System.out.println("Game Finished");
         removeAll();
-        add(endScreen);
-        endScreen.setText("You Won! \n score: " + score);
+        add(gameOfColor);
+        gameOfColor.setScore(score);
+        //endScreen.setText("You Won! \n score: " + score);
         revalidate();
         repaint();
     }
@@ -154,8 +156,9 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
     public void onGameLost() {
         System.out.println("Game Lost");
         removeAll();
-        add(endScreen);
-        endScreen.setText("You Lost! \n score: " + 40);
+        add(gameOfColor);
+        gameOfColor.setScore(40);
+        //endScreen.setText("You Lost! \n score: " + 40);
         revalidate();
         repaint();
     }
