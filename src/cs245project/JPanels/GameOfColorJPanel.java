@@ -32,32 +32,37 @@ import javax.swing.Timer;
  */
 public class GameOfColorJPanel extends JPanel implements OvalButtonListener, ActionListener{
 
+    public interface ColorGameStateListener{
+        public void onColorGameFinished(int score);
+    }
+    public void setColorGameStateListener(ColorGameStateListener ln){
+        colorListener = ln;
+    }
+    
+    private ColorGameStateListener colorListener;
     private Timer dateTimer = new Timer(1000,this);
     private JLabel jTextField1;
     private JLabel timer;
     private OvalButton[] ovalButton;
     private EndScreenJPanel endScreen;
-    private HangManJPanel hangMan;
     private Color[] colors = new Color[] { Color.RED, Color.GREEN, Color.BLUE, new Color(1.0f,1.0f,0.0f,1), new Color(1.0f,0.7f,0.85f,1)};
     Random rd = new Random();
     Color randomColor = colors[Math.abs(rd.nextInt())%colors.length];
     private String[] names = {"Red","Green","Blue","Yellow","Pink"};
-    private int numOfGames=1;
+    public int numOfGames=0;
     private int newScore;
     /**
      * Creates new form GameOfColorJPanel
      */
     public GameOfColorJPanel() {
         super();
-        endScreen = new EndScreenJPanel();
-        hangMan = new HangManJPanel();
         initComponents();
         mInit();
         this.setBounds(0,0, 600, 400);
-
     }
 
     private void mInit() {
+        endScreen = new EndScreenJPanel();
         jTextField1 = new JLabel();
         add(jTextField1);
         jTextField1.setBounds(280, 0, 100, 100);
@@ -74,8 +79,7 @@ public class GameOfColorJPanel extends JPanel implements OvalButtonListener, Act
         generateButtons();
         for(int i = 0; i<ovalButton.length; i++) {
             ovalButton[i].setOvalButtonListener(this);
-        }  
-        
+        }
     }
     
     private void generateButtons(){
@@ -98,13 +102,13 @@ public class GameOfColorJPanel extends JPanel implements OvalButtonListener, Act
                int newY = (int) (yPos + vecY);
                ovalButton[i].setBounds(newX, newY, rad, rad);
                               
-               System.out.println("Position Generated: " + newX + ", " + newY);
+               //System.out.println("Position Generated: " + newX + ", " + newY);
                if( xPos + vecX < (600-rad) && xPos + vecX > 0){
                   if(yPos + vecY < (400 - rad) && yPos + vecY > 0){
-                      System.out.println("Position In Bounds: " + newX + ", " + newY);
+                      //System.out.println("Position In Bounds: " + newX + ", " + newY);
                       if(!overlaps(i)) {
                           isValid = true;
-                          System.out.println("Position validated: " + newX + ", " + newY);
+                          //System.out.println("Position validated: " + newX + ", " + newY);
                           xPos = newY;
                           yPos = newX;
             
@@ -187,16 +191,25 @@ public class GameOfColorJPanel extends JPanel implements OvalButtonListener, Act
     public void onOvalButtonPressed(Color c) {
         System.out.println("button pressed" + c);
         System.out.println(jTextField1.getForeground());
-        generateButtons();
-        revalidate();
-        repaint();
-        if(c != jTextField1.getForeground()){
-            newScore -= 100;
-            System.out.println("score:" + newScore);
-        }
-        else{
+        if(jTextField1.getForeground().getRed()==c.getRed() && jTextField1.getForeground().getGreen()==c.getGreen() && jTextField1.getForeground().getBlue()==c.getBlue()){
             newScore += 100;
             System.out.println("score:" + newScore);
+            generateButtons();
+            revalidate();
+            repaint();
+        }
+        else{
+            newScore -= 100;
+            System.out.println("score:" + newScore);
+            generateButtons();
+            revalidate();
+            repaint();
+        }
+        numOfGames++;
+        System.out.println(numOfGames);
+        if(numOfGames==5){
+            colorListener.onColorGameFinished(newScore);
+            return;
         }
     }
     

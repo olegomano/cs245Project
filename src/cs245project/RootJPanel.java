@@ -21,14 +21,15 @@ purpose: This program plays a game of hangman
 
 package cs245project;
 
-import cs245project.JPanels.DisplayInfoJPanel;
-import cs245project.JPanels.MainMenuJPanel;
-import cs245project.JPanels.HangManJPanel;
-import cs245project.JPanels.HighScoreJPanel;
 import cs245project.JPanels.CreditsJPanel;
+import cs245project.JPanels.DisplayInfoJPanel;
 import cs245project.JPanels.EndScreenJPanel;
 import cs245project.JPanels.GameOfColorJPanel;
+import cs245project.JPanels.GameOfColorJPanel.ColorGameStateListener;
+import cs245project.JPanels.HangManJPanel;
 import cs245project.JPanels.HangManJPanel.HangManStateListener;
+import cs245project.JPanels.HighScoreJPanel;
+import cs245project.JPanels.MainMenuJPanel;
 import cs245project.JPanels.MainMenuJPanel.OnMainMenuOptionPressed;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -43,7 +44,7 @@ import javax.swing.Timer;
  *
  * @author momo-chan
  */
-public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, ReturnToMainMenuListener, HangManStateListener, ActionListener {
+public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, ReturnToMainMenuListener, HangManStateListener, ColorGameStateListener, ActionListener {
     private DisplayInfoJPanel displayInfo;
     private MainMenuJPanel mainMenu;
     private HangManJPanel hangMan;
@@ -74,6 +75,7 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         credits.setReturnMainMenuSelectedListener(this);
         hangMan.setHangmanStateListener(this);
         endScreen.setReturnMainMenuSelectedListener(this);
+        gameOfColor.setColorGameStateListener(this);
         timer = new Timer(3000,this);
         add(displayInfo);
         timer.start();
@@ -146,7 +148,6 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         removeAll();
         add(gameOfColor);
         gameOfColor.setScore(score);
-        //endScreen.setText("You Won! \n score: " + score);
         revalidate();
         repaint();
     }
@@ -158,7 +159,6 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         removeAll();
         add(gameOfColor);
         gameOfColor.setScore(40);
-        //endScreen.setText("You Lost! \n score: " + 40);
         revalidate();
         repaint();
     }
@@ -170,6 +170,16 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         timer.stop();
         removeAll();
         add(mainMenu);
+        revalidate();
+        repaint();
+    }
+
+    @Override
+    public void onColorGameFinished(int score) {
+        System.out.println("Color Game Finished");
+        removeAll();
+        add(endScreen);
+        endScreen.setText("" + score);
         revalidate();
         repaint();
     }
