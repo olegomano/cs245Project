@@ -209,6 +209,7 @@ public class GameOfColorJPanel extends JPanel implements OvalButtonListener, Act
         System.out.println(numOfGames);
         if(numOfGames==5){
             colorListener.onColorGameFinished(newScore);
+            numOfGames = 0;
             return;
         }
     }
