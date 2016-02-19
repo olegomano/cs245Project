@@ -53,10 +53,17 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
     private EndScreenJPanel endScreen;
     private GameOfColorJPanel gameOfColor;
     private Timer timer;
+    public static ScoreManager manager;
     
     //initializing necessary variables and starting a timer
     public RootJPanel(){
         super();
+        try {
+            manager = new ScoreManager();
+        } catch (IOException ex) {
+            Logger.getLogger(RootJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        manager.postScore(100000000,"A TEST");
         setPreferredSize(new Dimension(600,400));
         displayInfo = new DisplayInfoJPanel();
         mainMenu = new MainMenuJPanel(); 

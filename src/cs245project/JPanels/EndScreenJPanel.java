@@ -21,6 +21,7 @@ purpose: This program plays a game of hangman
 package cs245project.JPanels;
 
 import cs245project.ReturnToMainMenuListener;
+import javax.swing.JOptionPane;
 /**
  *
  * @author ningl_000
