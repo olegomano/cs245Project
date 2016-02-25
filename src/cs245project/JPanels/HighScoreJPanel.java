@@ -21,6 +21,8 @@ purpose: This program plays a game of hangman
 package cs245project.JPanels;
 
 import cs245project.ReturnToMainMenuListener;
+import cs245project.ScoreManager;
+import javax.swing.BoxLayout;
 
 /**
  *
@@ -36,7 +38,17 @@ public class HighScoreJPanel extends javax.swing.JPanel {
         super();
         initComponents();
     }
-
+    
+    public void showScores(ScoreManager manager){
+        jLabel2.setText(manager.getNames()[4] + "....." + manager.getScores()[4]);
+        jLabel3.setText(manager.getNames()[3] + "....." + manager.getScores()[3]);
+        jLabel4.setText(manager.getNames()[2] + "....." + manager.getScores()[2]);
+        jLabel5.setText(manager.getNames()[1] + "....." + manager.getScores()[1]);
+        jLabel6.setText(manager.getNames()[0] + "....." + manager.getScores()[0]);
+        repaint();
+        
+    }
+    
     public void setReturnMainMenuSelectedListener(ReturnToMainMenuListener l){
         listener = l;
     }
@@ -48,8 +60,7 @@ public class HighScoreJPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        jMenu1 = new javax.swing.JMenu();
+        setBounds(0,0,600,400);
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -58,8 +69,7 @@ public class HighScoreJPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        jMenu1.setText("jMenu1");
-
+       
         jLabel1.setFont(new java.awt.Font("Informal Roman", 1, 68)); // NOI18N
         jLabel1.setText("HighScore");
 
@@ -84,9 +94,34 @@ public class HighScoreJPanel extends javax.swing.JPanel {
                 jButton1MouseClicked(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+       
+        
+        add(jLabel1);
+        add(jLabel2);
+        add(jLabel3);
+        add(jLabel4);
+        add(jLabel5);
+        add(jLabel6);
+        add(jButton1);
+        
+        jLabel1.setBounds(100, 100, 200, 100);
+        
+        jLabel2.setBounds(100, 250, 400, 100);
+        jLabel3.setBounds(100, 300, 400, 100);
+        jLabel4.setBounds(100, 350, 400, 100);
+        jLabel5.setBounds(100, 400, 400, 100);
+        jLabel6.setBounds(100, 450, 400, 100);
+        
+        jButton1.setBounds(0,0,100,100);
+        
+        revalidate();
+        repaint();
+        //javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        
+        //this.setLayout(layout);
+        /*
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -127,6 +162,7 @@ public class HighScoreJPanel extends javax.swing.JPanel {
                 .addComponent(jButton1)
                 .addContainerGap(63, Short.MAX_VALUE))
         );
+        */
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked

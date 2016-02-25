@@ -63,7 +63,7 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         } catch (IOException ex) {
             Logger.getLogger(RootJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        manager.postScore(100000000,"A TEST");
+        //manager.postScore(100000000,"A TEST");
         setPreferredSize(new Dimension(600,400));
         displayInfo = new DisplayInfoJPanel();
         mainMenu = new MainMenuJPanel(); 
@@ -117,6 +117,7 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
     public void onHighScoreSelected() {
         System.out.println("On HighScoreSelected");
         remove(mainMenu);
+        highScore.showScores(manager);
         add(highScore);
         revalidate();
         repaint();
@@ -183,12 +184,17 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
 
     @Override
     public void onColorGameFinished(int score) {
-        System.out.println("Color Game Finished");
-        removeAll();
-        add(endScreen);
-        endScreen.setText("" + score);
-        revalidate();
-        repaint();
+        if(manager.isHighScore(score)){
+            //SHOW uSER ENTRY
+        }else{
+            System.out.println("Color Game Finished");
+            removeAll();
+            add(endScreen);
+            endScreen.setText("" + score);
+            revalidate();
+            repaint();
+        }
+       
     }
     
 }
