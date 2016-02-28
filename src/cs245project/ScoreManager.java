@@ -80,10 +80,19 @@ public class ScoreManager {
             System.out.println("Name: " + names[i] + " Score: " + scores[i]);
         }
     }
+    
+    /**
+     * Returns a list of all the names in the high score list sorted from least to greatest
+     * @return 
+     */
     public String[] getNames(){
         return names;
     }
     
+    /**
+     * Returns a list of all the scores in the high score list sorted form least to greatest
+     * @return 
+     */
     public int[] getScores(){
         return scores;
     }

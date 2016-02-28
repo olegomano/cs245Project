@@ -28,6 +28,7 @@ import cs245project.JPanels.GameOfColorJPanel;
 import cs245project.JPanels.GameOfColorJPanel.ColorGameStateListener;
 import cs245project.JPanels.HangManJPanel;
 import cs245project.JPanels.HangManJPanel.HangManStateListener;
+import cs245project.JPanels.HighScoreEntryJPanel;
 import cs245project.JPanels.HighScoreJPanel;
 import cs245project.JPanels.MainMenuJPanel;
 import cs245project.JPanels.MainMenuJPanel.OnMainMenuOptionPressed;
@@ -52,6 +53,7 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
     private CreditsJPanel credits;
     private EndScreenJPanel endScreen;
     private GameOfColorJPanel gameOfColor;
+    private HighScoreEntryJPanel highScoreEntry;
     private Timer timer;
     public static ScoreManager manager;
     
@@ -72,6 +74,7 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         credits = new CreditsJPanel();
         endScreen = new EndScreenJPanel();
         gameOfColor = new GameOfColorJPanel();
+        highScoreEntry = new HighScoreEntryJPanel();
         try {
             mainMenu.setBackroundImage("symbol.jpg");
         } catch (IOException ex) {
@@ -83,6 +86,7 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         hangMan.setHangmanStateListener(this);
         endScreen.setReturnMainMenuSelectedListener(this);
         gameOfColor.setColorGameStateListener(this);
+        highScoreEntry.setReturnToMainMenuListener(this);
         timer = new Timer(3000,this);
         add(displayInfo);
         timer.start();
@@ -185,7 +189,11 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
     @Override
     public void onColorGameFinished(int score) {
         if(manager.isHighScore(score)){
-            //SHOW uSER ENTRY
+            removeAll();
+            add(highScoreEntry);
+            highScoreEntry.setScore(score);
+            revalidate();
+            repaint();
         }else{
             System.out.println("Color Game Finished");
             removeAll();

@@ -65,11 +65,11 @@ public class GameOfColorJPanel extends JPanel implements OvalButtonListener, Act
         endScreen = new EndScreenJPanel();
         jTextField1 = new JLabel();
         add(jTextField1);
-        jTextField1.setBounds(280, 0, 100, 100);
-        jTextField1.setFont(new Font("serif", Font.PLAIN, 30));
+        jTextField1.setBounds(280, 0, 120, 100);
+        jTextField1.setFont(new Font("serif", Font.PLAIN, 22));
         timer = new JLabel();
         dateTimer.start();
-        timer.setBounds(475,5,150,40);
+        timer.setBounds(420,5,180,40);
         add(timer);
         ovalButton = new OvalButton[5];
         for(int i = 0; i < ovalButton.length; i++){
