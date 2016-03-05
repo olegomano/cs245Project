@@ -105,7 +105,7 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         Action OpenCredits = new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("OpenCredtis");
-               JOptionPane.showMessageDialog(RootJPanel.this, "cs245 Quarter Project \n \n  Oleg Tolstov, 009343997 \n Ning Li, 008878792 \n Sprint Quarter 2016");
+               JOptionPane.showMessageDialog(RootJPanel.this, "  cs245 Quarter Project \n \n  Oleg Tolstov, 009343997 \n Ning Li, 008878792 \n Sprint Quarter 2016");
             }
         };
         
