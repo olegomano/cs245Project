@@ -37,6 +37,7 @@ public class HighScoreJPanel extends javax.swing.JPanel {
     public HighScoreJPanel() {
         super();
         initComponents();
+        jButton1.setToolTipText("Return to main menu");
     }
     
     public void showScores(ScoreManager manager){

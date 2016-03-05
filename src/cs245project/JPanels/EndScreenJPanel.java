@@ -35,6 +35,7 @@ public class EndScreenJPanel extends javax.swing.JPanel {
     public EndScreenJPanel() {
         super();
         initComponents();
+        jButton1.setToolTipText("Go Back to Main Menu");
     }
     public void setReturnMainMenuSelectedListener(ReturnToMainMenuListener l){
         listener = l;

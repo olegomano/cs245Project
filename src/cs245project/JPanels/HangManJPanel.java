@@ -69,6 +69,8 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
         hangManGraphicsJpanel1 = new HangManGraphicsJpanel();
         jTextField2 = new JLabel();
         resetButton = new JButton();
+        resetButton.setToolTipText("Skip the game of hangman");
+        
         resetButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if(listener!=null){
