@@ -35,7 +35,6 @@ public class CreditsJPanel extends javax.swing.JPanel {
     public CreditsJPanel() {
         super();
         initComponents();
-        jButton1.setToolTipText("Return to main menu");
     }
     
     //action listener when user click back to return to main menu
