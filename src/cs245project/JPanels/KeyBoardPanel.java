@@ -94,7 +94,6 @@ public class KeyBoardPanel extends javax.swing.JPanel implements ActionListener{
             keys[i].setFont(new Font("Arial",Font.PLAIN,8) );
             keys[i].addActionListener(this);
             keys[i].setEnabled(true);
-            keys[i].setToolTipText("Try " + mLetter[0]);
             System.out.println("Created Key: " + keys[i].toString());
             add(keys[i]);
             ++mLetter[0];

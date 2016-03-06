@@ -46,9 +46,6 @@ public class MainMenuJPanel extends javax.swing.JPanel {
         super();
         setBounds(0, 0, 600, 400);
         initComponents();
-        jButton1.setToolTipText("Look at who made this game");
-        jButton2.setToolTipText("Look at the highscores");
-        jButton3.setToolTipText("Play the game");
     }
     
     public void setOnMainMenuOptionListener(OnMainMenuOptionPressed l){
