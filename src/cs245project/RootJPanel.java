@@ -37,10 +37,16 @@ import cs245project.JPanels.SudokuBoardDisplay.SudokuGameStateListener;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
 /**
@@ -58,6 +64,7 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
     private HighScoreEntryJPanel highScoreEntry;
     private SudokuBoardDisplay sudoku;
     private Timer timer;
+    private static final String F1_ACTION_INPUT = "F1-ACTION_INPUT";
     public static ScoreManager manager;
     
     //initializing necessary variables and starting a timer
@@ -97,6 +104,26 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
         timer.start();
         revalidate();
         repaint();
+        
+        Action OpenCredits = new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Open Credits");
+                JOptionPane.showMessageDialog(RootJPanel.this, "  cs245 Quarter Project \n \n  Oleg Tolstov, 009343997 \n Ning Li, 008878792 \n Sprint Quarter 2016");
+            }
+        };
+        
+        Action CloseGame = new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("CloseGame");
+                System.exit(0);
+            }
+        };
+        
+        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F1,0,true), F1_ACTION_INPUT);
+        getActionMap().put(F1_ACTION_INPUT,OpenCredits);
+        
+        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE,0,true), "close_game");
+        getActionMap().put("close_game",CloseGame);
     }
     
     //listeners to "back" and "end" button to return to mainmenu

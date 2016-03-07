@@ -6,6 +6,7 @@
 package cs245project.JPanels;
 
 import cs245project.JPanels.GameOfColorJPanel;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -13,6 +14,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Stroke;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -34,8 +36,8 @@ public class SudokuJPanel extends JPanel {
     private Color inputColor = Color.RED;
     private Font numbersFont = new Font("MonoSpaced", Font.BOLD, 20);
     
-    private JTextField[][] cells = new JTextField[gridSize][gridSize];
-    private int[][] puzzle =
+    JTextField[][] cells = new JTextField[gridSize][gridSize];
+    int[][] puzzle =
         {{8, 3, 5, 4, 1, 6, 9, 2, 7},
         {2, 9, 6, 8, 5, 7, 4, 3, 1},
         {4, 1, 7, 2, 9, 3, 6, 5, 8},
@@ -45,7 +47,7 @@ public class SudokuJPanel extends JPanel {
         {6, 5, 2, 7, 8, 1, 3, 9, 4},
         {9, 8, 1, 3, 4, 5, 2, 7, 6},
         {3, 7, 4, 9, 6, 2, 8, 1, 5}};
-    private boolean[][] blank =
+    boolean[][] blank =
         {{false,true,true,  false,true,false, true,true,false},
          {true,true,true,  true,true,true,  false,true,true},
          {true,false,true,  true,true,true,  false,false,true},
@@ -64,6 +66,7 @@ public class SudokuJPanel extends JPanel {
     public SudokuJPanel() {
         super();
         initComponents();
+//        SudokuInput inputListener = new SudokuInput();
         setLayout(new GridLayout(gridSize, gridSize));
         for(int row = 0; row < gridSize; row++){
             for(int col = 0; col < gridSize; col++){
@@ -73,6 +76,7 @@ public class SudokuJPanel extends JPanel {
                     cells[row][col].setText("");
                     cells[row][col].setEditable(true);
                     cells[row][col].setBackground(java.awt.Color.white);
+                  //  cells[row][col].addActionListener(inputListener);
                 } else {
                     cells[row][col].setText(puzzle[row][col] + "");
                     cells[row][col].setEditable(false);
@@ -87,30 +91,6 @@ public class SudokuJPanel extends JPanel {
         setVisible(true);
     }
     
-  
-    
-    public void mInit(){
-        /*for(int row = 0; row < gridSize; row++){
-            for(int col = 0; col < gridSize; col++){
-                cells[row][col] = new JTextField();
-                board.add(cells[row][col]);
-                if(blank[row][col]){
-                    cells[row][col].setText("");
-                    cells[row][col].setEditable(true);
-                    cells[row][col].setBackground(java.awt.Color.white);
-                } else {
-                    cells[row][col].setText(puzzle[row][col] + "");
-                    cells[row][col].setEditable(false);
-                    cells[row][col].setBackground(java.awt.Color.white);
-                    cells[row][col].setForeground(java.awt.Color.black);
-                }
-                cells[row][col].setHorizontalAlignment(JTextField.CENTER);
-                cells[row][col].setFont(numbersFont);
-            }
-        }
-        board.setPreferredSize(new Dimension(boxWidth, boxHeight));
-        setVisible(true);*/
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
