@@ -169,6 +169,9 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
         add(sudoku);
         add(time);
         add(cancel);
+        
+        submit.setToolTipText("This button submits the game");
+        cancel.setToolTipText("This button skips the game");
         dateTimer.start();
         revalidate();
         repaint();
