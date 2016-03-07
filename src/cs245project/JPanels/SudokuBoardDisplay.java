@@ -21,6 +21,7 @@ purpose: This program plays a game of hangman
 
 package cs245project.JPanels;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -130,8 +131,9 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
         submit.setText("Submit");
         cancel.setText("Cancel");
         
-        name.setBounds(20, 0, 50, 20);
-        time.setBounds(470, 5, 150, 20);
+        name.setBounds(20, 0, 70, 30);
+        name.setFont(new Font("Serif", Font.PLAIN, 20));
+        time.setBounds(470, 5, 200, 20);
         submit.setBounds(200, 340, 100, 30);
         cancel.setBounds(300, 340, 100, 30);
         sudoku.setBounds(100, 30, 400, 300);
@@ -248,6 +250,16 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
                             }
                             
                             int enteredText = 0;
+                            
+                            if(newText.length() > 1) {
+                                JOptionPane.showMessageDialog(SudokuBoardDisplay.this, "Please enter number 1-9");
+                                java.awt.EventQueue.invokeLater(new Runnable() {
+                                    public void run() {
+                                        me.setText("");
+                                    }
+                                });
+                                return;
+                            }
                             try{
                                 enteredText = Integer.parseInt(newText);
                             }catch(Exception e){
@@ -259,7 +271,7 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
                                 });
                                 return;
                             }
-                            if(enteredText < 0 || enteredText > 9){
+                            if(enteredText <= 0 || enteredText > 9){
                                 JOptionPane.showMessageDialog(SudokuBoardDisplay.this, "Please enter number 1-9");
                                 java.awt.EventQueue.invokeLater(new Runnable() {
                                     public void run() {
