@@ -220,22 +220,11 @@ public class RootJPanel extends JPanel implements OnMainMenuOptionPressed, Retur
 
     @Override
     public void onColorGameFinished(int score) {
-        if(manager.isHighScore(score)){
-            removeAll();
-            add(sudoku);
-            //add(highScoreEntry);
-            //highScoreEntry.setScore(score);
-            revalidate();
-            repaint();
-        }else{
-            System.out.println("Color Game Finished");
-            removeAll();
-            add(sudoku);
-            //add(endScreen);
-            //endScreen.setText("" + score);
-            revalidate();
-            repaint();
-        }
+        removeAll();
+        sudoku.setScore(score);
+        add(sudoku);
+        revalidate();
+        repaint();
        
     }
 

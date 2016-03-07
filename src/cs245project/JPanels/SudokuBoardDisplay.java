@@ -45,8 +45,7 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
     private Timer dateTimer = new Timer(1000,this);
     JButton submit;
     JButton cancel;
-    private int initialScore = 540;
-    private int finalScore;
+    private int initialScore = 0;
     /**
      * Creates new form SudokuBoardDisplay
      */
@@ -112,14 +111,14 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
         submit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if(sudokuListener!=null){
-                    sudokuListener.onSubmitButtonPressed(finalScore);
+                    sudokuListener.onSubmitButtonPressed(initialScore + calculateScore());
                 }
             }
         });
         cancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if(sudokuListener!=null){
-                    sudokuListener.onCancelButtonPressed(finalScore);
+                    sudokuListener.onCancelButtonPressed(initialScore + calculateScore());
                 }
             }
         });
@@ -142,9 +141,29 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
             }
         }
     }
+    
+    private int calculateScore(){
+        int resultScore = 540;
+        for(int i = 0; i < sudoku.cells.length; i++){
+            for(int b = 0;  b < sudoku.cells[0].length; b++){
+                int cellNumber = -1;
+                try{
+                    cellNumber = Integer.parseInt(sudoku.cells[i][b].getText());
+                }catch(Exception e){
+                    cellNumber = -1;
+                }
+                if(sudoku.puzzle[i][b] - cellNumber != 0){
+                    resultScore-=10;
+                }
+            }
+        }
+        System.out.println("Sudoku Score " + resultScore);
+        return resultScore;
+    }
+    
 
     public void setScore(int score){
-        finalScore = score + initialScore;
+        initialScore = score;
     }
     
     @Override
