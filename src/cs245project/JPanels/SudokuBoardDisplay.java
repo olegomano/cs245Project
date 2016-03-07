@@ -1,8 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/***************************************************************
+*
+file: RootJPanel.java
+*
+author: Oleg Tolstov
+* 
+author: Ning Li
+*
+class: CS 245
+–
+GUI
+*
+*
+assignment: Quarter Project
+*
+date last modified: 3/07/2015
+*
+*
+purpose: This program plays a game of hangman
+****************************************************************/ 
 
 package cs245project.JPanels;
 
@@ -30,6 +45,7 @@ import javax.swing.text.BadLocationException;
  */
 public class SudokuBoardDisplay extends JPanel implements ActionListener {
  
+    //interfaces for the two buttons
     public interface SudokuGameStateListener{
         public void onSubmitButtonPressed(int score);
         public void onCancelButtonPressed(int score);
@@ -38,6 +54,7 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
         sudokuListener = l;
     }
     
+    //initialize needed variables
     private SudokuGameStateListener sudokuListener;
     SudokuJPanel sudoku;   
     JLabel name;
@@ -46,6 +63,9 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
     JButton submit;
     JButton cancel;
     private int initialScore = 0;
+    private boolean[][] mistake = new boolean[9][9];
+    boolean allCorrect = false;
+    
     /**
      * Creates new form SudokuBoardDisplay
      */
@@ -54,6 +74,11 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
         //initComponents();
         mInit();
         this.setBounds(0,0,600,400);
+        for(int i=0; i< mistake.length; i++){
+            for(int j = 0; j< mistake.length; j++){
+                mistake[i][j] = true;
+            }
+        }
     }
 
     /**
@@ -81,6 +106,9 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
+    //initialize the layout, buttons and jlabels.  set the appropriate texts and bounds
+    //then adds the listener and passed the score accordingly
+    //finally add the buttons and grid and labels and set listeners to all the texttfields
     private void mInit() {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -110,6 +138,11 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
         
         submit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                calculateScore();
+                if(allCorrect == false){
+                    JOptionPane.showMessageDialog(SudokuBoardDisplay.this, "Not All Correct.  Try Again");
+                    return;
+                }
                 if(sudokuListener!=null){
                     sudokuListener.onSubmitButtonPressed(initialScore + calculateScore());
                 }
@@ -118,10 +151,17 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
         cancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if(sudokuListener!=null){
-                    sudokuListener.onCancelButtonPressed(initialScore + calculateScore());
+                    sudokuListener.onCancelButtonPressed(initialScore);
                 }
             }
         });
+        
+        for(int i=0; i< mistake.length; i++){
+            for(int j = 0; j< mistake.length; j++){
+                mistake[i][j] = false;
+            }
+        }
+        
         add(name);
         add(submit);
         add(sudoku);
@@ -142,8 +182,12 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
         }
     }
     
+    //calculate the scores following instructions
+    //-10 for every answer wrong, and the setScore method determines if it is
+    //already deducted pts off the total for each textfield
     private int calculateScore(){
         int resultScore = 540;
+        allCorrect = true;
         for(int i = 0; i < sudoku.cells.length; i++){
             for(int b = 0;  b < sudoku.cells[0].length; b++){
                 int cellNumber = -1;
@@ -153,7 +197,11 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
                     cellNumber = -1;
                 }
                 if(sudoku.puzzle[i][b] - cellNumber != 0){
-                    resultScore-=10;
+                    allCorrect = false;
+                    if(mistake[i][b] == false){
+                        resultScore-=10;
+                        mistake[i][b] = true;
+                    }
                 }
             }
         }
@@ -161,16 +209,33 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
         return resultScore;
     }
     
-
+    //set the score and determine if the textfield already been taking pts off
+    //then do not take off pts on further attempts
     public void setScore(int score){
         initialScore = score;
+        for(int i=0; i< mistake.length; i++){
+            for(int j = 0; j< mistake.length; j++){
+                mistake[i][j] = false;
+            }
+        }
+        
+        for(int i=0; i< sudoku.cells.length; i++){
+            for(int j = 0; j< sudoku.cells.length; j++){
+                if(sudoku.blank[i][j] == true){
+                    sudoku.cells[i][j].setText("");
+                }
+            }
+        }
     }
     
+    //timer on the top right corner
     @Override
     public void actionPerformed(ActionEvent ae) {
         time.setText(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()) );
     }
     
+    //docuemtn listener for the textfield
+    //need to alert user for wrong input
      class MDocumentListener implements DocumentListener{
                         JTextField me;
                         @Override

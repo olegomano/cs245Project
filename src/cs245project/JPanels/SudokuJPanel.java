@@ -1,8 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/***************************************************************
+*
+file: RootJPanel.java
+*
+author: Oleg Tolstov
+* 
+author: Ning Li
+*
+class: CS 245
+–
+GUI
+*
+*
+assignment: Quarter Project
+*
+date last modified: 3/07/2015
+*
+*
+purpose: This program plays a game of hangman
+****************************************************************/ 
+
 package cs245project.JPanels;
 
 import cs245project.JPanels.GameOfColorJPanel;
@@ -25,6 +41,7 @@ import javax.swing.JTextField;
  */
 public class SudokuJPanel extends JPanel {
 
+    //initialize all needed variables
     private final int startScore = 540;
     private int finalScore;
     private int gridSize = 9;
@@ -36,6 +53,8 @@ public class SudokuJPanel extends JPanel {
     private Color inputColor = Color.RED;
     private Font numbersFont = new Font("MonoSpaced", Font.BOLD, 20);
     
+    //initialize the textfields, puzzle right answer, and if it should be 
+    //edible or not
     JTextField[][] cells = new JTextField[gridSize][gridSize];
     int[][] puzzle =
         {{8, 3, 5, 4, 1, 6, 9, 2, 7},
@@ -63,6 +82,8 @@ public class SudokuJPanel extends JPanel {
     /**
      * Creates new form SudokuJPanel
      */
+    
+    //create the board and set the according clues for the game
     public SudokuJPanel() {
         super();
         initComponents();
