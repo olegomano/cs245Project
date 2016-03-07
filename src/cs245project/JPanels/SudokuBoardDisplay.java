@@ -190,8 +190,8 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
     //calculate the scores following instructions
     //-10 for every answer wrong, and the setScore method determines if it is
     //already deducted pts off the total for each textfield
+    private int resultScore = 540;
     private int calculateScore(){
-        int resultScore = 540;
         allCorrect = true;
         for(int i = 0; i < sudoku.cells.length; i++){
             for(int b = 0;  b < sudoku.cells[0].length; b++){
@@ -217,6 +217,7 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
     //set the score and determine if the textfield already been taking pts off
     //then do not take off pts on further attempts
     public void setScore(int score){
+        resultScore = 540;
         initialScore = score;
         for(int i=0; i< mistake.length; i++){
             for(int j = 0; j< mistake.length; j++){
