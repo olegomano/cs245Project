@@ -12,18 +12,23 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.Timer;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
 
 /**
  *
  * @author ningl_000
  */
-public class SudokuBoardDisplay extends JPanel implements ActionListener, KeyListener {
+public class SudokuBoardDisplay extends JPanel implements ActionListener {
  
     public interface SudokuGameStateListener{
         public void onSubmitButtonPressed(int score);
@@ -130,7 +135,9 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener, KeyLis
         for(int row = 0; row < 9; row++){
             for(int col = 0; col < 9; col++) {
                 if(sudoku.blank[row][col] == true) {
-                    sudoku.cells[row][col].addKeyListener(this);
+                    MDocumentListener listener = new MDocumentListener();
+                    listener.me = sudoku.cells[row][col];
+                    sudoku.cells[row][col].getDocument().addDocumentListener(listener);
                 }
             }
         }
@@ -145,34 +152,51 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener, KeyLis
         time.setText(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()) );
     }
     
-    
-    @Override
-    public void keyTyped(KeyEvent ke) {
-        System.out.println("Sudoku keyTyped listener");
-        for(int row = 0; row < 9; row++){
-            for(int col = 0; col < 9; col++) {
-                String inputText = sudoku.cells[row][col].getText();
-                if(inputText == ""){
-                    break;
-                }
-                int number = Integer.parseInt(inputText);
-                if(number != 1 || number != 2 || number != 3|| number != 4 || number != 5|| number != 6 || number != 7 || number != 8 || number != 9) {
-                    JOptionPane.showMessageDialog(this, "Please enter number 1-9");
-                }
-                if(number != sudoku.puzzle[row][col]){
-                    initialScore -= 10;
-                    System.out.println("-10 points");
-                }
-            }
-        }
-    }
+     class MDocumentListener implements DocumentListener{
+                        JTextField me;
+                        @Override
+                        public void insertUpdate(DocumentEvent de) {
+                            String newText = "";
+                            try {
+                                newText = de.getDocument().getText(0, de.getDocument().getLength());
+                            } catch (BadLocationException ex) {
+                                Logger.getLogger(SudokuBoardDisplay.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            
+                            int enteredText = 0;
+                            try{
+                                enteredText = Integer.parseInt(newText);
+                            }catch(Exception e){
+                                JOptionPane.showMessageDialog(SudokuBoardDisplay.this, "Please enter number 1-9");
+                                java.awt.EventQueue.invokeLater(new Runnable() {
+                                    public void run() {
+                                        me.setText("");
+                                    }
+                                });
+                                return;
+                            }
+                            if(enteredText < 0 || enteredText > 9){
+                                JOptionPane.showMessageDialog(SudokuBoardDisplay.this, "Please enter number 1-9");
+                                java.awt.EventQueue.invokeLater(new Runnable() {
+                                    public void run() {
+                                        me.setText("");
+                                    }
+                                });
+                              
+                            }
+                        }
 
-    @Override
-    public void keyPressed(KeyEvent ke) {
-    }
+                        @Override
+                        public void removeUpdate(DocumentEvent de) {
+                       
+                        }
 
-    @Override
-    public void keyReleased(KeyEvent ke) {
-    }
-       
+                        @Override
+                        public void changedUpdate(DocumentEvent de) {
+                        
+                        }
+                    
+                    };
 }
+
+
