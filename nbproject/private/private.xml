@@ -3,14 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/momo-chan/NetBeansProjects/cs245Project/src/cs245project/JPanels/KeyBoardPanel.java</file>
-            <file>file:/home/momo-chan/NetBeansProjects/cs245Project/src/cs245project/JPanels/MainMenuJPanel.java</file>
-            <file>file:/home/momo-chan/NetBeansProjects/cs245Project/src/cs245project/ScoreManager.java</file>
-            <file>file:/home/momo-chan/NetBeansProjects/cs245Project/src/cs245project/JPanels/HangManGraphicsJpanel.java</file>
-            <file>file:/home/momo-chan/NetBeansProjects/cs245Project/src/cs245project/JPanels/EndScreenJPanel.java</file>
-            <file>file:/home/momo-chan/NetBeansProjects/cs245Project/src/cs245project/JPanels/HangManJPanel.java</file>
-            <file>file:/home/momo-chan/NetBeansProjects/cs245Project/src/cs245project/Cs245Project.java</file>
-            <file>file:/home/momo-chan/NetBeansProjects/cs245Project/src/cs245project/RootJPanel.java</file>
+            <file>file:/C:/Users/ningl_000/Desktop/cs245Project-master/cs245Project-master/cs245Project-master/cs245Project-master/cs245Project-master/src/cs245project/JPanels/GameOfColorJPanel.java</file>
+            <file>file:/C:/Users/ningl_000/Desktop/cs245Project-master/cs245Project-master/cs245Project-master/cs245Project-master/cs245Project-master/src/cs245project/JPanels/SudokuBoardDisplay.java</file>
+            <file>file:/C:/Users/ningl_000/Desktop/cs245Project-master/cs245Project-master/cs245Project-master/cs245Project-master/cs245Project-master/src/cs245project/JPanels/SudokuJPanel.java</file>
+            <file>file:/C:/Users/ningl_000/Desktop/cs245Project-master/cs245Project-master/cs245Project-master/cs245Project-master/cs245Project-master/src/cs245project/RootJPanel.java</file>
         </group>
     </open-files>
 </project-private>

@@ -8,18 +8,23 @@ package cs245project.JPanels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.Timer;
 
 /**
  *
  * @author ningl_000
  */
-public class SudokuBoardDisplay extends JPanel implements ActionListener {
-        
+public class SudokuBoardDisplay extends JPanel implements ActionListener, KeyListener {
+ 
     public interface SudokuGameStateListener{
         public void onSubmitButtonPressed(int score);
         public void onCancelButtonPressed(int score);
@@ -30,17 +35,19 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
     
     private SudokuGameStateListener sudokuListener;
     SudokuJPanel sudoku;   
-    private JLabel name;
-    private JLabel time;
-    private JButton submit;
-    private JButton cancel;
-    private int finalScore = 0;
+    JLabel name;
+    JLabel time;
+    private Timer dateTimer = new Timer(1000,this);
+    JButton submit;
+    JButton cancel;
+    private int initialScore = 540;
+    private int finalScore;
     /**
      * Creates new form SudokuBoardDisplay
      */
     public SudokuBoardDisplay() {
         super();
-        initComponents();
+        //initComponents();
         mInit();
         this.setBounds(0,0,600,400);
     }
@@ -58,11 +65,11 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 600, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -71,19 +78,32 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
     // End of variables declaration//GEN-END:variables
 
     private void mInit() {
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
         sudoku = new SudokuJPanel();
-        //add(sudoku);
         name = new JLabel();
         time = new JLabel();
         submit = new JButton();
         cancel = new JButton();
+        
         name.setText("Sudoku");
-        name.setBounds(0,0,100,100);
-        time.setBounds(400,50,150,40);
         submit.setText("Submit");
         cancel.setText("Cancel");
-        submit.setBounds(10, 450, 50, 40);
-        cancel.setBounds(540, 450, 50, 40);
+        
+        name.setBounds(20, 0, 50, 20);
+        time.setBounds(470, 5, 150, 20);
+        submit.setBounds(200, 340, 100, 30);
+        cancel.setBounds(300, 340, 100, 30);
+        sudoku.setBounds(100, 30, 400, 300);
+        
         submit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if(sudokuListener!=null){
@@ -100,17 +120,59 @@ public class SudokuBoardDisplay extends JPanel implements ActionListener {
         });
         add(name);
         add(submit);
+        add(sudoku);
+        add(time);
         add(cancel);
+        dateTimer.start();
         revalidate();
         repaint();
+        
+        for(int row = 0; row < 9; row++){
+            for(int col = 0; col < 9; col++) {
+                if(sudoku.blank[row][col] == true) {
+                    sudoku.cells[row][col].addKeyListener(this);
+                }
+            }
+        }
     }
 
     public void setScore(int score){
-        finalScore = score;
+        finalScore = score + initialScore;
     }
     
     @Override
     public void actionPerformed(ActionEvent ae) {
         time.setText(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()) );
     }
+    
+    
+    @Override
+    public void keyTyped(KeyEvent ke) {
+        System.out.println("Sudoku keyTyped listener");
+        for(int row = 0; row < 9; row++){
+            for(int col = 0; col < 9; col++) {
+                String inputText = sudoku.cells[row][col].getText();
+                if(inputText == ""){
+                    break;
+                }
+                int number = Integer.parseInt(inputText);
+                if(number != 1 || number != 2 || number != 3|| number != 4 || number != 5|| number != 6 || number != 7 || number != 8 || number != 9) {
+                    JOptionPane.showMessageDialog(this, "Please enter number 1-9");
+                }
+                if(number != sudoku.puzzle[row][col]){
+                    initialScore -= 10;
+                    System.out.println("-10 points");
+                }
+            }
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent ke) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent ke) {
+    }
+       
 }

@@ -68,7 +68,10 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
         keyBoardPanel1 = new KeyBoardPanel();
         hangManGraphicsJpanel1 = new HangManGraphicsJpanel();
         jTextField2 = new JLabel();
+        hangmanName = new JLabel();
         resetButton = new JButton();
+        resetButton.setToolTipText("Skip the game of hangman");
+        
         resetButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if(listener!=null){
@@ -78,6 +81,8 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
         });
         keyBoardPanel1.setKeyListener(this);
         dateTimer.start();
+        hangmanName.setText("HangMan");
+        hangmanName.setBounds(400, 0, 120, 50);
         hangManGraphicsJpanel1.setBounds(25,0,375,200);
         keyBoardPanel1.setBounds(25, 225, 550, 150);
         jTextField2.setBounds(400,50,150,40);
@@ -87,6 +92,7 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
         add(hangManGraphicsJpanel1);
         add(jTextField2);
         add(resetButton);
+        add(hangmanName);
         
     }
     /**
@@ -121,6 +127,7 @@ public class HangManJPanel extends javax.swing.JPanel implements OnKeyPressedLis
     JLabel jTextField2;
     KeyBoardPanel keyBoardPanel1;
     JButton resetButton;
+    JLabel hangmanName;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
